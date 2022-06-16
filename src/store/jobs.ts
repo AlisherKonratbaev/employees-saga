@@ -1,17 +1,23 @@
-import {IJob, ISetJobsAction} from "../types";
+import {IJob, ISetJobsAction, ISetLoadingJobs} from "../types";
+import {SET_LOADING, SET_JOBS} from "./actions";
 
-type IState = {
-    list:IJob[]
+type IStateJobs = {
+    list:IJob[],
+    isLoading:boolean
 }
 
-const initialState:IState = {
+const initialState:IStateJobs = {
     list: [],
+    isLoading: false,
 }
 
-const jobsReducer = (state = initialState, action:ISetJobsAction) => {
+const jobsReducer = (state = initialState, action:ISetJobsAction | ISetLoadingJobs) => {
     switch (action.type) {
-        case "SET_JOBS": {
+        case SET_JOBS: {
             return {...state, list:{...action.payload}}
+        }
+        case SET_LOADING: {
+            return {...state, isLoading:action.payload}
         }
         default :{
             return state

@@ -1,17 +1,25 @@
 import React, {useEffect} from 'react';
 import {useAppSelector} from "./hooks";
+import {Box, Container, Grid, Paper} from "@mui/material";
+import Header from "./components/Header";
+import Content from "./components/Content";
+import Sidebar from "./components/Sidebar";
 
 
-function App() {
-  const jobs = useAppSelector(store => store.jobs.list);
-  useEffect(() => {
-    console.log(jobs)
-  })
-  return (
-    <div className="App">
-
-    </div>
-  );
+const App:React.FC = () => {
+    return (
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+                <Header/>
+            </Grid>
+            <Grid item xs={2}>
+                <Sidebar/>
+            </Grid>
+            <Grid item xs={10}>
+                <Content/>
+            </Grid>
+        </Grid>
+    );
 }
 
 export default App;
