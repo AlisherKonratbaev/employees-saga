@@ -1,8 +1,16 @@
 
 import {takeEvery, fork, put, call, take, spawn} from 'redux-saga/effects'
 import {fetchJobs, fetchEmployees} from "../api";
-import {setJobsAction, setLoadingJobsAction, setEmployeesAction, setLoadingEmployeesAction, SET_EMPLOYEES, GET_JOBS} from '../store/actions'
-import {IJob, IGetEmployee, IEmployees} from "../types";
+import {
+    setJobsAction,
+    setLoadingJobsAction,
+    setEmployeesAction,
+    setLoadingEmployeesAction,
+    SET_EMPLOYEES,
+    GET_JOBS,
+    GET_EMPLOYEES
+} from '../store/actions'
+import {IJob, IGetEmployeeAction, IEmployees} from "../types";
 
 function* getJobs() {
     yield put(setLoadingJobsAction(true))
@@ -17,7 +25,7 @@ function* getJobs() {
 }
 
 
-function* getEmployeesByJobs(action:IGetEmployee) {
+function* getEmployeesByJobs(action:IGetEmployeeAction) {
     yield put(setLoadingEmployeesAction(true))
     try{
         const data: IEmployees[] = yield call(fetchEmployees, action.payload);
@@ -30,7 +38,7 @@ function* getEmployeesByJobs(action:IGetEmployee) {
 }
 
 function* watchGetEmployees() {
-    yield takeEvery(SET_EMPLOYEES, getEmployeesByJobs)
+    yield takeEvery(GET_EMPLOYEES, getEmployeesByJobs)
 }
 
 function* watchGetJobs() {

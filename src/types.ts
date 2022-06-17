@@ -40,7 +40,7 @@ export interface ISetLoadingEmployee{
     payload: boolean,
 }
 
-export interface IGetEmployee{
+export interface IGetEmployeeAction {
     type: typeof GET_EMPLOYEES,
     payload: string,
 }

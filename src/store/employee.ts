@@ -1,5 +1,5 @@
 import { SET_EMPLOYEES, SET_LOADING_EMPLOYEES} from "./actions";
-import { IEmployees, ISetEmployeesAction, ISetLoadingEmployee} from "../types"
+import {IEmployees, IGetEmployeeAction, ISetEmployeesAction, ISetLoadingEmployee} from "../types"
 
 type IStateJobs = {
     list:IEmployees[],
@@ -11,7 +11,7 @@ const initialState:IStateJobs = {
     isLoading: false,
 }
 
-const employeeReducer = (state = initialState, action:ISetEmployeesAction | ISetLoadingEmployee) => {
+const employeeReducer = (state = initialState, action:ISetEmployeesAction | ISetLoadingEmployee | IGetEmployeeAction) => {
     switch(action.type) {
         case SET_EMPLOYEES: {
             return {...state, list:action.payload}

@@ -15,7 +15,7 @@ const initialState:IStateJobs = {
 const jobsReducer = (state = initialState, action:ISetJobsAction | ISetLoadingJobs | IGetJobs) => {
     switch (action.type) {
         case SET_JOBS: {
-            return {...state, list:{...action.payload}}
+            return {...state, list:[...action.payload]}
         }
         case SET_LOADING_JOBS: {
             return {...state, isLoading:action.payload}
