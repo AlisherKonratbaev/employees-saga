@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import {useAppDispatch, useAppSelector} from "../hooks";
-import {IJob} from "../types";
 import {getJobsAction, getEmployeesAction} from '../store/actions';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -15,7 +14,7 @@ const Sidebar: React.FC = () => {
     const isLoading = useAppSelector(state => state.jobs.isLoading)
 
     useEffect(() => {
-        if (jobs.length == 0) {
+        if (jobs.length === 0) {
             dispatch(getJobsAction())
         }
     }, [dispatch])
@@ -31,7 +30,7 @@ const Sidebar: React.FC = () => {
             </Box>
         )
         else return (
-            jobs.length != 0 && jobs.map(job => (
+            jobs.length !== 0 && jobs.map(job => (
                 <ListItem key={job.id} disablePadding>
                     <ListItemButton component="div" onClick={() => {
                         showEmployees(job.jobId)

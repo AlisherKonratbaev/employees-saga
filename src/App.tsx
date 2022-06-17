@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
-import {useAppSelector} from "./hooks";
-import {Box, Container, Grid, Paper} from "@mui/material";
+import React, {} from 'react';
+import { Grid} from "@mui/material";
 import Header from "./components/Header";
 import Content from "./components/Content";
 import Sidebar from "./components/Sidebar";
