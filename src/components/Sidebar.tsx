@@ -4,15 +4,22 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import {useAppSelector} from "../hooks";
+import {useAppDispatch, useAppSelector} from "../hooks";
 import {IJob} from "../types";
+import { getJobsAction } from '../store/actions';
 
 const Sidebar: React.FC = () => {
-    const jobs = useAppSelector(state => state.jobs.list)
+    let jobs = useAppSelector(state => state.jobs.list)
+    const dispatch = useAppDispatch();
     const isLoading = useAppSelector(state => state.jobs.isLoading)
+    
+    useEffect(() => {
+        if(jobs.length == 0) {
+            dispatch(getJobsAction())
+        }
+    }, [dispatch])
 
     const show = () => {
-        console.log(jobs)
         if (jobs.length == 0) return (<p>123</p>)
         else return (
             jobs.map(job => (
@@ -22,6 +29,7 @@ const Sidebar: React.FC = () => {
                     </ListItemButton>
                 </ListItem>
             ))
+            
         )
     }
     return (

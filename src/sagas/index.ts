@@ -1,11 +1,11 @@
-import {LOCATION_CHANGE} from "connected-react-router";
-import {takeEvery, fork, put, call, take} from 'redux-saga/effects'
-import {fetchJobs} from "../api";
-import {setJobsAction, setLoadingAction} from "../store/actions";
-import {IJob} from "../types";
+
+import {takeEvery, fork, put, call, take, spawn} from 'redux-saga/effects'
+import {fetchJobs, fetchEmployees} from "../api";
+import {setJobsAction, setLoadingJobsAction, setEmployeesAction, setLoadingEmployeesAction, SET_EMPLOYEES, GET_JOBS} from '../store/actions'
+import {IJob, IGetEmployee, IEmployees} from "../types";
 
 function* getJobs() {
-    yield put(setLoadingAction(true))
+    yield put(setLoadingJobsAction(true))
     try{
         const data: IJob[] = yield call(fetchJobs);
         yield put(setJobsAction(data))
@@ -13,13 +13,31 @@ function* getJobs() {
     catch {
         console.log("error")
     }
-    yield put(setLoadingAction(false))
+    yield put(setLoadingJobsAction(false))
 }
 
-function* watchJobs() {
-    yield fork(getJobs)
+
+function* getEmployeesByJobs(action:IGetEmployee) {
+    yield put(setLoadingEmployeesAction(true))
+    try{
+        const data: IEmployees[] = yield call(fetchEmployees, action.payload);
+        yield put(setEmployeesAction(data))
+    }
+    catch {
+        console.log("error")
+    }
+    yield put(setLoadingEmployeesAction(false))
+}
+
+function* watchGetEmployees() {
+    yield takeEvery(SET_EMPLOYEES, getEmployeesByJobs)
+}
+
+function* watchGetJobs() {
+    yield takeEvery(GET_JOBS, getJobs)
 }
 
 export function* rootSaga() {
-    yield takeEvery(LOCATION_CHANGE, watchJobs)
+    yield fork(watchGetJobs);
+    yield fork(watchGetEmployees);
 }

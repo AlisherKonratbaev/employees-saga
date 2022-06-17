@@ -4,19 +4,20 @@ import './index.css';
 import App from './App';
 import {Provider} from "react-redux";
 import store from "./store";
-import { ConnectedRouter} from "connected-react-router";
 import {history} from "./store";
-import {History} from "history";
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { History } from 'history'
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
 root.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <App/>
-        </ConnectedRouter>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<App />} />
+            </Routes>
+        </BrowserRouter>
     </Provider>
 );
 
