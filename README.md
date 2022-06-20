@@ -8,7 +8,7 @@ Gets data:<br>
 
 
 ## Demo
-[(https://employees-saga.vercel.app/)](https://employees-saga.vercel.app/)
+https://employees-saga.vercel.app/
 
 ## Technologies used
 Typescript, React, Redux, Redux-Saga, Material UI
